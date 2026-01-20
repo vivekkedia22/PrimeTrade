@@ -4,7 +4,7 @@ import { ApiError } from "../utils/apierror";
 
 export const cache = (
   keyBuilder: (req: Request) => string,
-  ttl = 300
+  ttl = 10
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
