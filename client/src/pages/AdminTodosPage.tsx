@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import todoService from '../api/todoService';
 import type{ Todo } from '../types';
 import { getErrorMessage } from '../utils/errorHandler';
@@ -9,25 +9,25 @@ const AdminTodosPage: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
+  // const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500);
+  // useEffect(() => {
+  //   const timerId = setTimeout(() => {
+  //     setDebouncedSearchTerm(searchTerm);
+  //   }, 500);
 
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [searchTerm]);
+  //   return () => {
+  //     clearTimeout(timerId);
+  //   };
+  // }, [searchTerm]);
 
   useEffect(() => {
     const fetchAllTodos = async () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await todoService.getAllTodosAdmin(debouncedSearchTerm);
+        const data = await todoService.getAllTodosAdmin();
         setTodos(data);
       } catch (err) {
         setError(getErrorMessage(err));
@@ -36,7 +36,7 @@ const AdminTodosPage: React.FC = () => {
       }
     };
     fetchAllTodos();
-  }, [debouncedSearchTerm]);
+  }, []);
 
   if (loading) {
     return <div className="container mx-auto mt-8 text-center">Loading all todos...</div>;
